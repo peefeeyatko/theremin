@@ -8,7 +8,7 @@ A [theremin](https://en.wikipedia.org/wiki/Theremin) built with HTML5 and JavaSc
 Point and click anywhere on the screen to play a sound, then move up or down to change the pitch. The left side of canvas will produce a sine sound wave while the right side produces a sawtooth sound wave.
 
 
-#### Cross browser / device compatability
+#### Cross browser / device compatibility
 
 Theremin should work in all modern browsers except for IE. It works with touch screen devices and is responsive.
 
