@@ -1,7 +1,7 @@
 Theremin
 ========
 
-A theremin built with HTML5 and JavaScript. It uses the canvas element and the web audio API.
+A [theremin](https://en.wikipedia.org/wiki/Theremin) built with HTML5 and JavaScript. It uses the canvas element and the web audio API.
 
 #### Directions
 
@@ -10,7 +10,7 @@ Point and click anywhere on the screen to play a sound, then move up or down to 
 
 #### Cross browser / device compatability
 
-Theremin should work on all modern browsers except for IE. Works with touch screen devices and is responsive.
+Theremin should work in all modern browsers except for IE. It works with touch screen devices and is responsive.
 
 #### Credits
 
