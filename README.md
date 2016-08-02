@@ -1,7 +1,7 @@
 Theremin
 ========
 
-A thermin built with HTML5 and JavScript. It uses the canvas element and the web audio API.
+A theremin built with HTML5 and JavaScript. It uses the canvas element and the web audio API.
 
 #### Directions
 
@@ -12,6 +12,6 @@ Point and click anywhere on the screen to play a sound, then move up or down to 
 
 Theremin should work on all modern browsers except for IE. Works with touch screen devices and is responsive.
 
-#### Credit
+#### Credits
 
-WAD.js is the libray used for audio manipulation, its like jQuery for your ears!
+[WAD.js](https://github.com/rserota/wad) is the libray used for audio manipulation, its like jQuery for your ears!
