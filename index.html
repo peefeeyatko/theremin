@@ -136,18 +136,28 @@ window.onload = function() {
             source = 'saw';
         }
     });
-    c.addEventListener(eventEnd, function(e) {
-        liney = false;
-        pr = 10;
-
-        if (source === 'sine') {
-            sine.stop();
-        } else {
-            saw.stop();
-        }
-
-        source = '';
+    c.addEventListener(eventEnd, function() {
+        reset();
     });
+    c.addEventListener('touchleave', function() {
+        reset();
+    });
+    c.addEventListener('touchcancel', function() {
+        reset();
+    });
+};
+
+function reset() {
+    liney = false;
+    pr = 10;
+
+    if (source === 'sine') {
+        sine.stop();
+    } else {
+        saw.stop();
+    }
+
+    source = '';
 };
 
 function setCoordinates(e) {
