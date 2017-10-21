@@ -2,30 +2,34 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <meta name="keywords" content="html5 javascript theremin web audio canvas marshall sutton">
-    <meta name="description" content="Theremin built with HTML5 and JavaScript. Developed by Marshall Sutton a web developer from Sydney, Australia.">
+  <meta name="keywords" content="html5 javascript theremin web audio canvas marshall sutton">
+  <meta name="description" content="Theremin built with HTML5 and JavaScript. Developed by Marshall Sutton a web developer from Sydney, Australia.">
 
-    <title>Theremin - HTML5</title>
+  <title>Theremin - HTML5</title>
 
-    <style>
-    html, body {
-        margin: 0;
-        cursor: none;
-        overflow: hidden;
-        position: fixed;
-    }
-    </style>
+  <style>
+  html, body {
+    margin: 0;
+    cursor: none;
+    overflow: hidden;
+    position: fixed;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  </style>
 </head>
 
 <body>
 
-    <canvas id="c" width="640" height="480"></canvas>
+  <canvas id="c" width="640" height="480"></canvas>
 
-<script src="js/wad.min.js"></script>
+<script src="./vendor/wad.min.js"></script>
 <script>
 touch = false;
 
@@ -52,20 +56,20 @@ sine = new Wad({
     pitch: 0,
     loop: true,
     env: {
-        hold: 1000
+      hold: 1000
     },
     tuna: {
-        Chorus: {
-            intensity: 0.3,
-            rate: 3,
-            stereoPhase: 40,
-            bypass: 0
-        }
+      Chorus: {
+        intensity: 0.3,
+        rate: 3,
+        stereoPhase: 40,
+        bypass: 0
+      }
     },
     delay: {
-        delayTime : .35,   // Time in seconds between each delayed playback
-        wet       : .15,  // Relative volume change between the original sound and the first delayed playback
-        feedback  : .15  // Relative volume change between each delayed playback and the next
+      delayTime : .35,
+      wet       : .15,
+      feedback  : .15
     }
 });
 
@@ -75,131 +79,136 @@ saw = new Wad({
     pitch: 0,
     loop: true,
     env: {
-        hold: 1000
+      hold: 1000
     },
     tuna: {
-        Chorus: {
-            intensity: 0.3,
-            rate: 3,
-            stereoPhase: 40,
-            bypass: 0
-        }
+      Chorus: {
+        intensity: 0.3,
+        rate: 3,
+        stereoPhase: 40,
+        bypass: 0
+      }
     },
     delay: {
-        delayTime : .35,   // Time in seconds between each delayed playback
-        wet       : .15,  // Relative volume change between the original sound and the first delayed playback
-        feedback  : .15  // Relative volume change between each delayed playback and the next
+      delayTime : .35,   // Time in seconds between each delayed playback
+      wet       : .15,  // Relative volume change between the original sound and the first delayed playback
+      feedback  : .15  // Relative volume change between each delayed playback and the next
     }
 });
 
-window.onload = function() {
-    c  = document.getElementById('c');
-    cc = c.getContext('2d');
+window.onload = function () {
+  c  = document.getElementById('c');
+  cc = c.getContext('2d');
 
-    setInterval(update, 1000 / 30);
+  setInterval(update, 1000 / 30);
 
-    resizeCanvas();
+  resizeCanvas();
 
-    window.addEventListener('resize', resizeCanvas);
+  window.addEventListener('resize', resizeCanvas);
 
-    c.addEventListener(eventMove, function(e) {
-        setCoordinates(e);
+  c.addEventListener(eventMove, function (e) {
+    setCoordinates(e);
 
-        if (liney) {
-            pitchshift = window.innerHeight - py;
+    if (liney) {
+      pitchshift = window.innerHeight - py;
 
-            if (px < window.innerWidth / 2) {
-                sine.setPitch(pitchshift);
-            } else {
-                saw.setPitch(pitchshift);
-            }
-        }
-
-        if (touch) {
-            pointRadius = (window.innerHeight - py) * 0.015;
-
-            if (pr < 40) {
-                pr += pointRadius;
-            }
-        }
-    });
-    c.addEventListener(eventStart, function(e) {
-        setCoordinates(e);
-
-        liney = py;
-
-        if (px < window.innerWidth / 2) {
-            sine.play({pitch: window.innerHeight - liney});
-            source = 'sine';
-        } else {
-            saw.play({pitch: window.innerHeight - liney});
-            source = 'saw';
-        }
-    });
-    c.addEventListener(eventEnd, function() {
-        reset();
-    });
-    c.addEventListener('touchleave', function() {
-        reset();
-    });
-    c.addEventListener('touchcancel', function() {
-        reset();
-    });
-};
-
-function reset() {
-    liney = false;
-    pr = 10;
-
-    if (source === 'sine') {
-        sine.stop();
-    } else {
-        saw.stop();
+      if (px < window.innerWidth / 2) {
+        sine.setPitch(pitchshift);
+      } else {
+        saw.setPitch(pitchshift);
+      }
     }
 
-    source = '';
-};
-
-function setCoordinates(e) {
     if (touch) {
-        px = e.touches ? e.touches[0].pageX : e.pageX;
-        py = e.touches ? e.touches[0].pageY : e.pageY;
-    } else {
-        px = e.layerX;
-        py = e.layerY;
+      pointRadius = (window.innerHeight - py) * 0.015;
+
+      if (pr < 40) {
+        pr += pointRadius;
+      }
     }
+  });
+
+  c.addEventListener(eventStart, function (e) {
+      setCoordinates(e);
+
+      liney = py;
+
+      if (px < window.innerWidth / 2) {
+        sine.play({pitch: window.innerHeight - liney});
+        source = 'sine';
+      } else {
+        saw.play({pitch: window.innerHeight - liney});
+        source = 'saw';
+      }
+  });
+
+  c.addEventListener(eventEnd, function () {
+    reset();
+  });
+
+  c.addEventListener('touchleave', function () {
+    reset();
+  });
+
+  c.addEventListener('touchcancel', function () {
+    reset();
+  });
 };
 
-function resizeCanvas() {
-    c.width = window.innerWidth;
-    c.height = window.innerHeight;
+function reset () {
+  liney = false;
+  pr = 10;
+
+  if (source === 'sine') {
+    sine.stop();
+  } else {
+    saw.stop();
+  }
+
+  source = '';
 };
 
-function update() {
-    // Draw world
-    cc.fillStyle = 'black';
-    cc.fillRect(0, 0, window.innerWidth, window.innerHeight);
+function setCoordinates (e) {
+  if (touch) {
+    px = e.touches ? e.touches[0].pageX : e.pageX;
+    py = e.touches ? e.touches[0].pageY : e.pageY;
+  } else {
+    px = e.layerX;
+    py = e.layerY;
+  }
+};
 
-    // Draw divider
-    cc.fillStyle = '#f7f7f7';
-    cc.fillRect(window.innerWidth / 2, 0, 1, window.innerHeight);
+function resizeCanvas () {
+  c.width = window.innerWidth;
+  c.height = window.innerHeight;
+};
 
-    // Draw horizontal line
-    if (liney) {
-        cc.fillStyle = '#18fb62';
-        cc.fillRect(0, py, window.innerWidth, 3);
-    }
+function update () {
+  // Draw world
+  cc.fillStyle = 'black';
+  cc.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
-    // Draw point
-    if (liney) {
-        cc.fillStyle = '#18fb62';
-    } else {
-        cc.fillStyle = (touch) ? 'black' : 'rgba(255, 255, 255, 0.4)';
-    }
-    cc.beginPath();
-    cc.arc(px, py, pr, 0, 2 * Math.PI);
-    cc.closePath();
-    cc.fill();
+  // Draw divider
+  cc.fillStyle = '#f7f7f7';
+  cc.fillRect(window.innerWidth / 2, 0, 1, window.innerHeight);
+
+  // Draw horizontal line
+  if (liney) {
+    cc.fillStyle = '#18fb62';
+    cc.fillRect(0, py, window.innerWidth, 3);
+  }
+
+  // Draw point
+  if (liney) {
+    cc.fillStyle = '#18fb62';
+  } else {
+    cc.fillStyle = (touch) ? 'black' : 'rgba(255, 255, 255, 0.4)';
+  }
+
+  cc.beginPath();
+  cc.arc(px, py, pr, 0, 2 * Math.PI);
+  cc.closePath();
+  cc.fill();
 };
 </script>
 </body>
