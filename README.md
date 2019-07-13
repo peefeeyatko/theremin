@@ -14,4 +14,4 @@ Theremin should work in all modern browsers except for IE. It works with touch s
 
 #### Credits
 
-[WAD.js](https://github.com/rserota/wad) is the libray used for audio manipulation, its like jQuery for your ears!
+[WAD.js](https://github.com/rserota/wad) is the libray used for audio manipulation.
