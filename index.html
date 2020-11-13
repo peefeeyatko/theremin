@@ -29,7 +29,7 @@
 
   <canvas id="c" width="640" height="480"></canvas>
 
-<script src="./vendor/wad.min.js"></script>
+<script src="https://unpkg.com/web-audio-daw"></script>
 <script>
 touch = false;
 
@@ -129,17 +129,20 @@ window.onload = function () {
   });
 
   c.addEventListener(eventStart, function (e) {
-      setCoordinates(e);
+    // Google Chrome fix
+    Wad.audioContext.resume();
+    
+    setCoordinates(e);
 
-      liney = py;
+    liney = py;
 
-      if (px < window.innerWidth / 2) {
-        sine.play({pitch: window.innerHeight - liney});
-        source = 'sine';
-      } else {
-        saw.play({pitch: window.innerHeight - liney});
-        source = 'saw';
-      }
+    if (px < window.innerWidth / 2) {
+      sine.play({pitch: window.innerHeight - liney});
+      source = 'sine';
+    } else {
+      saw.play({pitch: window.innerHeight - liney});
+      source = 'saw';
+    }
   });
 
   c.addEventListener(eventEnd, function () {
