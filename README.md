@@ -10,7 +10,7 @@ Point and click anywhere on the screen to play a sound, then move up or down to 
 
 #### Cross browser / device compatibility
 
-Theremin should work in all modern browsers. It works with touch screen devices and is responsive.
+Theremin should function in all modern browsers. It works with touch screen devices and is responsive.
 
 #### Credits
 
